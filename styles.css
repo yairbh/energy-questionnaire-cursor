@@ -25,6 +25,14 @@ h1, h2, h3 {
     margin-bottom: 20px;
 }
 
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
 p {
     line-height: 1.6;
     margin-bottom: 20px;
@@ -32,6 +40,35 @@ p {
 
 #question-container {
     margin-bottom: 30px;
+}
+
+.question-header {
+    background-color: #d0f0c0;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.energy-type-title {
+    background-color: #eef4f9;
+    color: #333;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: right;
+}
+
+.description-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    text-align: right;
+}
+
+.description-section h3 {
+    color: #007BFF;
+    margin-bottom: 10px;
 }
 
 #options-container {
@@ -50,10 +87,19 @@ button {
     border: none;
     border-radius: 5px;
     transition: background-color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+button img {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
 }
 
 .circle-container {
@@ -95,21 +141,32 @@ button:hover {
 
 @media (max-width: 600px) {
     .circle-container {
-        width: 300px;
-        height: 300px;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .circle-option {
-        width: 80px;
-        height: 80px;
+        position: static;
+        margin: 10px 0;
+        transform: none !important;
     }
 
-    .circle-option img {
-        width: 30px;
-        height: 30px;
+    #questionnaire {
+        padding: 20px;
     }
 
-    .circle-option span {
-        font-size: 10px;
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    button {
+        width: 100%;
     }
 }

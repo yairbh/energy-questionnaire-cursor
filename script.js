@@ -146,9 +146,23 @@ function displayQuestion() {
     const questionContainer = document.getElementById('question-container');
     const optionsContainer = document.getElementById('options-container');
 
-    questionContainer.innerHTML = `<h2>${section.question}</h2>`;
+    questionContainer.innerHTML = `<h2 class="question-header">${section.question}</h2>`;
     if (section.content) {
-        questionContainer.innerHTML += `<p>${section.content}</p>`;
+        questionContainer.innerHTML += `
+            <div class="energy-type-title">${section.question}</div>
+            <div class="description-section">
+                <h3>בחירה מצוינת!</h3>
+                <p>${section.content}</p>
+            </div>
+        `;
+    }
+    if (section.content2) {
+        questionContainer.innerHTML += `
+            <div class="description-section">
+                <h3>יחד עם זאת...</h3>
+                <p>${section.content2}</p>
+            </div>
+        `;
     }
     if (section.question2) {
         questionContainer.innerHTML += `<h3>${section.question2}</h3>`;
@@ -160,7 +174,11 @@ function displayQuestion() {
         section.options.forEach((option, index) => {
             const button = document.createElement('div');
             button.className = "circle-option";
-            button.style.transform = `rotate(${index * 60}deg) translate(150px) rotate(-${index * 60}deg)`;
+            const angle = (index * 60) - 90; // Start from the top (90 degrees)
+            const radius = 150; // Adjust this value to change the size of the circle
+            const x = Math.cos(angle * Math.PI / 180) * radius;
+            const y = Math.sin(angle * Math.PI / 180) * radius;
+            button.style.transform = `translate(${x}px, ${y}px)`;
             button.innerHTML = `
                 <img src="${option.icon}" alt="${option.text}">
                 <span>${option.text}</span>
@@ -168,14 +186,11 @@ function displayQuestion() {
             button.onclick = () => selectOption(option.nextSection);
             optionsContainer.appendChild(button);
         });
-    } else if (section.type === "final") {
-        optionsContainer.className = "";
-        optionsContainer.innerHTML = `<p>${section.content}</p>`;
     } else {
         optionsContainer.className = "";
         section.options.forEach(option => {
             const button = document.createElement('button');
-            button.innerHTML = option.text;
+            button.innerHTML = `<img src="${option.icon}" alt="${option.text}">${option.text}`;
             button.onclick = () => selectOption(option.nextSection);
             optionsContainer.appendChild(button);
         });
