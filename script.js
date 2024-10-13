@@ -160,8 +160,11 @@ function displayQuestion() {
         section.options.forEach((option, index) => {
             const button = document.createElement('div');
             button.className = "circle-option";
-            button.style.backgroundColor = getColor(index);
-            button.innerHTML = option.text;
+            button.style.transform = `rotate(${index * 60}deg) translate(150px) rotate(-${index * 60}deg)`;
+            button.innerHTML = `
+                <img src="${option.icon}" alt="${option.text}">
+                <span>${option.text}</span>
+            `;
             button.onclick = () => selectOption(option.nextSection);
             optionsContainer.appendChild(button);
         });
@@ -182,11 +185,6 @@ function displayQuestion() {
 function selectOption(nextSection) {
     questionnaire.currentSection = nextSection;
     displayQuestion();
-}
-
-function getColor(index) {
-    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'];
-    return colors[index % colors.length];
 }
 
 window.onload = displayQuestion;
