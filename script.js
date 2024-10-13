@@ -1,168 +1,205 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+const questionnaire = {
+    sections: {
+        1: {
+            question: "איזה סוג תחנת כוח אתם מציעים לבנות בישראל?",
+            options: [
+                { text: "גז טבעי", nextSection: 2, icon: "גז.png" },
+                { text: "טורבינת רוח", nextSection: 3, icon: "רוח.png" },
+                { text: "הידרו-אלקטרי", nextSection: 4, icon: "הידרו.png" },
+                { text: "פוטו-וולטאי", nextSection: 5, icon: "פוטו-וולטאית.png" },
+                { text: "תרמו-סולארי", nextSection: 6, icon: "תרמו-סולארי.png" },
+                { text: "גרעיני", nextSection: 7, icon: "גרעיני.png" }
+            ],
+            type: "circle"
+        },
+        2: {
+            question: "גז טבעי",
+            content: "בחירה מצוינת! גז טבעי הוא מקור אנרגיה אמין ונקי יחסית בהשוואה לפחם ונפט. יש לו טביעת אצבע פחמנית נמוכה יותר והוא יכול לספק חשמל באופן רציף.\n\nיחד עם זאת... הוא עדיין פולט גזי חממה ומתבסס על משאבים מוגבלים, מה שיכול לתרום להתחממות הגלובלית ולדלדול המשאבים. בנוסף, תשתית להפקת גז טבעי והפצתו יכולה לגרום להשפעות סביבתיות שליליות משמעותיות.",
+            question2: "האם ברצונך לשקול אפשרות אחרת או להמשיך עם גז טבעי?",
+            options: [
+                { text: "להמשיך עם גז טבעי", nextSection: 9, icon: "גז.png" },
+                { text: "לבחור אפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        3: {
+            question: "טורבינות רוח",
+            content: "בחירה מצוינת! טורבינות רוח הן מקור אנרגיה מתחדש שמייצר חשמל ללא פליטת גזי חממה במהלך הפעולה. הן יכולות להיות מותקנות ביבשה או בים ולתרום להפחתת התלות בדלקים פוסיליים (דלק מאובנים).\n\nיחד עם זאת... הן דורשות הרבה מקום ויכולות להשפיע על חיי הבר המקומיים, במיוחד על ציפורים ועטלפים. ההשפעה החזותית והרעש של חוות רוח יכולה גם להוות בעיה לקהילות מקומיות. בנוסף, הרוח אינה זמינה באופן רציף, כלומר היא לא תמיד נושבת כאשר יש צורך בחשמל.",
+            question2: "האם ברצונך לשקול אפשרות אחרת או להמשיך עם טורבינות רוח?",
+            options: [
+                { text: "להמשיך עם טורבינות רוח", nextSection: 10, icon: "רוח.png" },
+                { text: "לבחור אפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        4: {
+            question: "הידרו-אלקטרי",
+            content: "בחירה מצוינת! כוח הידרו-אלקטרי מנצל את האנרגיה של מים זורמים כדי לייצר חשמל. זהו מקור אנרגיה מתחדש שיכול לייצר כמויות גדולות של חשמל ולספק אנרגיה אמינה ויציבה.\n\nיחד עם זאת... בניית מאגרי מים גדולים לצורך תחנות הידרו-אלקטריות יכולה לגרום להשפעות סביבתיות שליליות משמעותיות, כמו שינוי מערכות מים, העברת קהילות והשפעה על חיי הבר המקומיים. בנוסף, ייצור כוח הידרו-אלקטרי יכול להיות מושפע מהבדלים עונתיים ומבצורות.",
+            question2: "האם ברצונך לשקול אפשרות אחרת או להמשיך עם כוח הידרו-אלקטרי?",
+            options: [
+                { text: "להמשיך עם הידרו-אלקטרי", nextSection: 11, icon: "הידרו.png" },
+                { text: "לבחור אפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        5: {
+            question: "פוטו-וולטאי",
+            content: "בחירה מצוינת! כוח פוטו-וולטאי, שמיוצר על ידי פאנלים סולאריים, הוא מקור אנרגיה נקי ומתחדש. ישראל, עם שפע אור השמש שלה, מתאימה מאוד לטכנולוגיה זו.\n\nיחד עם זאת... תחנות פוטו-וולטאיות מייצרות כמויות קטנות יחסית של חשמל בהשוואה לטכנולוגיות אחרות. כדי לייצר מספיק חשמל, יש צורך בשטחים גדולים לפאנלים סולאריים, ולישראל יש מעט שטחים פתוחים זמינים להתקנות כאלה. בנוסף, כוח סולארי זמין רק לסירוגין, שכן הוא תלוי באור השמש, שאינו זמין בלילה ויכול להיות מופחת בימים מעוננים.",
+            question2: "האם ברצונך לשקול אפשרות אחרת או להמשיך עם כוח פוטו-וולטאי?",
+            options: [
+                { text: "להמשיך עם פוטו-וולטאי", nextSection: 12, icon: "פוטו-וולטאית.png" },
+                { text: "לבחור אפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        6: {
+            question: "תרמו-סולארי",
+            content: "בחירה מצוינת! תחנת כוח תרמו-סולארית, הידועה גם כתחנת כוח סולארי מרוכז, משתמשת במראות או עדשות לריכוז אור השמש כדי לייצר חום, שמשמש לאחר מכן לייצור חשמל. טכנולוגיה זו יכולה לאחסן אנרגיה תרמית לשימוש כאשר השמש אינה זורחת, מה שמאפשר אספקת חשמל יציבה יותר ממערכות פוטו-וולטאיות.\n\nיחד עם זאת... תחנות תרמו-סולאריות דורשות משאבי קרקע ומים משמעותיים לקירור. בנוסף, הבנייה והתחזוקה של תחנות אלו עלולות להיות יקרות מאוד.",
+            question2: "האם ברצונך לשקול אפשרות אחרת או להמשיך עם כוח תרמו-סולארי?",
+            options: [
+                { text: "להמשיך עם תרמו-סולארי", nextSection: 13, icon: "תרמו-סולארי.png" },
+                { text: "לבחור אפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        7: {
+            question: "גרעיני",
+            content: "בחירה מצוינת! כוח גרעיני יכול לייצר כמות גדולה של חשמל עם פליטות נמוכות של גזי חממה במהלך הפעולה. הוא מאפשר אספקת חשמל יציבה ואמינה, מה שהופך אותו לאפשרות אטרקטיבית כמענה לביקושים גבוהים לחשמל.\n\nיחד עם זאת... כוח גרעיני מציב סיכוני בטיחות משמעותיים, כולל פוטנציאל לתאונות קטסטרופליות והאתגר ארוך הטווח של ניהול פסולת רדיואקטיבית. בנוסף, תחנות גרעיניות הן יקרות לבנייה ולפירוק, ודורשות אמצעי בטיחות ואבטחה מחמירים.",
+            question2: "האם ברצונך לשקול אפשרות אחרת או להמשיך עם כוח גרעיני?",
+            options: [
+                { text: "להמשיך עם כוח גרעיני", nextSection: 14, icon: "גרעיני.png" },
+                { text: "לבחור אפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        8: {
+            question: "באיזו תחנת כוח בחרת?",
+            options: [
+                { text: "גז טבעי", nextSection: 9, icon: "גז.png" },
+                { text: "טורבינת רוח", nextSection: 10, icon: "רוח.png" },
+                { text: "הידרו-אלקטרי", nextSection: 11, icon: "הידרו.png" },
+                { text: "פוטו-וולטאי", nextSection: 12, icon: "פוטו-וולטאית.png" },
+                { text: "תרמו-סולארי", nextSection: 13, icon: "תרמו-סולארי.png" },
+                { text: "גרעיני", nextSection: 14, icon: "גרעיני.png" }
+            ],
+            type: "circle"
+        },
+        9: {
+            question: "גז טבעי",
+            content: "מאחר ובחרתם בגז טבעי, חשוב לשקול את ההשלכות הגיאופוליטיות, שכן הסתמכות על יבוא גז טבעי יכולה להשפיע על ביטחון האנרגיה הלאומי. בישראל יש אמנם מאגרי גז רבים, אך יום ויבוא והם ייגמרו, וישראל תיאלץ לייבא גז ממדינות אחרות. בנוסף, ההפקה וההובלה של הגז הטבעי יכולות לגרום להשפעות סביבתיות שליליות, כגון דליפות מתאן המהווה גז חממה. למרות האתגרים הללו, גז טבעי נותר דלק גישור לעבר עתיד עם זיהום פחמן נמוך יותר.",
+            question2: "האם ברצונך לאשר את הבחירה שלך או לעבור לאפשרות אחרת?",
+            options: [
+                { text: "לאשר את הבחירה בגז טבעי", nextSection: 15, icon: "גז.png" },
+                { text: "לעבור לאפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        10: {
+            question: "טורבינות רוח",
+            content: "מאחר ובחרתם בטורבינות רוח, יש לזכור את אי הסדירות של הרוח, שיכולה להוביל לשינויים בייצור החשמל. מערכות אחסון אנרגיה, כמו סוללות, יכולות לעזור להתמודד עם בעיה זו אך הן יכולות להיות יקרות ודורשות שיפורים טכנולוגיים נוספים. בנוסף, יש לשקול את ההתקבלות של מערכות כאלה על ידי הקהילה ואת החסמים הרגולטוריים הפוטנציאליים לפרויקטים חדשים של חוות רוח.",
+            question2: "האם ברצונך לאשר את הבחירה שלך או לעבור לאפשרות אחרת?",
+            options: [
+                { text: "לאשר את הבחירה בטורבינות רוח", nextSection: 15, icon: "רוח.png" },
+                { text: "לעבור לאפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        11: {
+            question: "הידרו-אלקטרי",
+            content: "מאחר ובחרתם באנרגיה הידרו-אלקטרית, חשוב לשקול את ההשפעות הסביבתיות ארוכות הטווח, כמו שקיעת משקעים ושינויים באיכות המים. פרויקטים גדולים של תחנות הידרו-אלקטריות עלולים גם להיות שנויים במחלוקת ולעורר התנגדות מקהילות מקומיות וקבוצות סביבתיות. למרות האתגרים הללו, כוח הידרו-אלקטרי נותר מקור משמעותי ואמין לאנרגיה מתחדשת.",
+            question2: "האם ברצונך לאשר את הבחירה שלך או לעבור לאפשרות אחרת?",
+            options: [
+                { text: "לאשר את הבחירה באנרגיה הידרו-אלקטרית", nextSection: 15, icon: "הידרו.png" },
+                { text: "לעבור לאפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        12: {
+            question: "פוטו-וולטאי",
+            content: "מאחר ובחרתם באנרגיה פוטו-וולטאית, חשוב לחשוב על יעילות הפאנלים הסולאריים והעלויות הקשורות למערכת אחסון אנרגיה כדי להבטיח אספקת חשמל יציבה. ייצור הפאנלים הסולאריים והפסולת הנובעת מכך - גם הם בעלי השפעות סביבתיות שליליות, כולל שימוש בחומרים נדירים ורעילים. למרות זאת, כוח סולארי הוא חלק חיוני מאסטרטגיה מגוונת של אנרגיה מתחדשת.",
+            question2: "האם ברצונך לאשר את הבחירה שלך או לעבור לאפשרות אחרת?",
+            options: [
+                { text: "לאשר את הבחירה באנרגיה פוטו-וולטאית", nextSection: 15, icon: "פוטו-וולטאית.png" },
+                { text: "לעבור לאפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        13: {
+            question: "תרמו-סולארי",
+            content: "מאחר ובחרתם באנרגיה תרמו-סולארית, חשוב לשקול את השימוש הנדרש במערכת מסוג זה במים לקירור - במיוחד באזורים יבשים כמו ישראל, שם המים הם משאב יקר ערך. ההשפעה הסביבתית של השימוש בקרקע והעלויות הגבוהות ההתחלתיות הן גורמים חשובים גם כן. עם זאת, טכנולוגיית תרמו-סולארי יכולה לאפשר אספקת כוח יציבה, מה שהופך אותה לתוספת חשובה לתמהיל האנרגיה.",
+            question2: "האם ברצונך לאשר את הבחירה שלך או לעבור לאפשרות אחרת?",
+            options: [
+                { text: "לאשר את הבחירה באנרגיה תרמו-סולארית", nextSection: 15, icon: "תרמו-סולארי.png" },
+                { text: "לעבור לאפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        14: {
+            question: "גרעיני",
+            content: "מאחר ובחרתם באנרגיה גרעינית, חשוב לשקול את העלויות הגבוהות ההתחלתיות ואת פרקי הזמן הארוכים הדרושים לבניית תחנות חדשות מסוג זה. בעיות של ניהול פסולת רדיואקטיבית ותפיסת הציבור של בטיחות גרעינית - גם הם אתגרים משמעותיים. למרות החששות הללו, כוח גרעיני מציע פתרון אנרגיה בעל תפוקה גבוהה ודלת פחמן.",
+            question2: "האם ברצונך לאשר את הבחירה שלך או לעבור לאפשרות אחרת?",
+            options: [
+                { text: "לאשר את הבחירה באנרגיה גרעינית", nextSection: 15, icon: "גרעיני.png" },
+                { text: "לעבור לאפשרות אחרת", nextSection: 8 }
+            ]
+        },
+        15: {
+            question: "החלטה סופית",
+            content: "תודה על תשובותיכם! כפי שראיתם, לכל סוג של תחנת כוח יש יתרונות וחסרונות משלו. מורכבות זו מדגישה את החשיבות של הבנת תהליכי ייצור האנרגיה בצורה מקיפה.\n\nאתם מוזמנים להביא את תכנית הלימודים \"בשביל האנרגיה\" לתלמידיכם, על מנת שיוכלו לחקור בעצמם את סוגי תחנות הכוח בטכנולוגיות השונות ולקבל החלטה מושכלת!",
+            type: "final"
+        }
+    },
+    currentSection: 1
+};
 
-#questionnaire {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    max-width: 800px;
-    width: 100%;
-    text-align: center;
-}
+function displayQuestion() {
+    const section = questionnaire.sections[questionnaire.currentSection];
+    const questionContainer = document.getElementById('question-container');
+    const optionsContainer = document.getElementById('options-container');
 
-/* Typography */
-h1, h2, h3 {
-    color: #333;
-    line-height: 1.2;
-}
-
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-}
-
-h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-p {
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-/* Circular Layout */
-.circle-container {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    margin: 50px auto;
-}
-
-.circle-option {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #eef4f9;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.circle-option:hover {
-    transform: scale(1.1);
-}
-
-.circle-option img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 5px;
-}
-
-.circle-option span {
-    font-size: 12px;
-    text-align: center;
-}
-
-/* Inner Sections */
-.question-header {
-    background-color: #d0f0c0;
-    padding: 10px;
-    margin: -20px -20px 20px -20px;
-    border-radius: 10px 10px 0 0;
-}
-
-.energy-type-title {
-    background-color: #d0f0c0;
-    color: #333;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.description-section {
-    background-color: #f9f9f9;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
-
-/* Buttons */
-button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-button img {
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-    .circle-container {
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    questionContainer.innerHTML = `<h2 class="question-header">${section.question}</h2>`;
+    if (section.content) {
+        questionContainer.innerHTML += `
+            <div class="energy-type-title">${section.question}</div>
+            <div class="description-section">
+                <h3>בחירה מצוינת!</h3>
+                <p>${section.content}</p>
+            </div>
+        `;
     }
-
-    .circle-option {
-        position: static;
-        margin-bottom: 20px;
-        transform: none !important;
+    if (section.content2) {
+        questionContainer.innerHTML += `
+            <div class="description-section">
+                <h3>יחד עם זאת...</h3>
+                <p>${section.content2}</p>
+            </div>
+        `;
     }
+    if (section.question2) {
+        questionContainer.innerHTML += `<h3>${section.question2}</h3>`;
+    }
+    optionsContainer.innerHTML = '';
 
-    button {
-        width: 100%;
+    if (section.type === "circle") {
+        optionsContainer.className = "circle-container";
+        section.options.forEach((option, index) => {
+            const button = document.createElement('div');
+            button.className = "circle-option";
+            const angle = (index * 60) - 90; // Start from the top (90 degrees)
+            const radius = 150; // Adjust this value to change the size of the circle
+            const x = Math.cos(angle * Math.PI / 180) * radius;
+            const y = Math.sin(angle * Math.PI / 180) * radius;
+            button.style.transform = `translate(${x}px, ${y}px)`;
+            button.innerHTML = `
+                <img src="${option.icon}" alt="${option.text}">
+                <span>${option.text}</span>
+            `;
+            button.onclick = () => selectOption(option.nextSection);
+            optionsContainer.appendChild(button);
+        });
+    } else {
+        optionsContainer.className = "";
+        section.options.forEach(option => {
+            const button = document.createElement('button');
+            button.innerHTML = `<img src="${option.icon}" alt="${option.text}">${option.text}`;
+            button.onclick = () => selectOption(option.nextSection);
+            optionsContainer.appendChild(button);
+        });
     }
 }
 
-/* Accessibility */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+function selectOption(nextSection) {
+    questionnaire.currentSection = nextSection;
+    displayQuestion();
 }
+
+window.onload = displayQuestion;
